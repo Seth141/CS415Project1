@@ -7,6 +7,7 @@
 #if a^(N-1) = 1(mod N) and repeats it k times to reduce the probability of error to 2^(-k).)
 import random
 
+
 def primality(N):
     #input: positive int N
     #output: true/false
@@ -44,4 +45,3 @@ testN = int(input("\nProblem 2: input n:"))
 testk = int(input("\nProblem 2: input k:"))
 if(primality3(testN, testk)) : print("yes")
 else: print ("no")
-
