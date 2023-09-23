@@ -13,16 +13,15 @@ def primality(N):
     
     #pick a positive int a<N at random
     a = random.randint(1, N)
-    if((a^(N-1))%N == 1 % N ):
-        return True
-    else:
-        return False
+
+    if((a**(N-1)) % N == (1 % N)): return True
+    else: return False
 
 def primality2(N, k):
-    result = False
+    
     for i in range(k):
         result = primality(N)
-        if (result == True) : return result
+        if (result == False) : return result
     
     return result
 
@@ -31,19 +30,18 @@ def primality3(N, k):
     #int N and confidence prarameter k
     #output: true/false
     
-    if(N % 3 == 1):
-        return False
-    elif(N % 5 == 1):
-        return False
-    elif(N % 7 == 1):
-        return False
-    elif(N % 11 == 1):
-        return False
+    if(N == 2 or 3 or 5 or 7 or 11): return True
+    if(N % 2 == 0): return False
+    if(N % 3 == 0): return False
+    elif(N % 5 == 0): return False
+    elif(N % 7 == 0): return False
+    elif(N % 11 == 0): return False
     
     return primality2
 
 
-if(primality3(18, 5)) : print("yes")
+testN = int(input("\nProblem 2: input n:"))
+testk = int(input("\nProblem 2: input k:"))
+if(primality3(testN, testk)) : print("yes")
 else: print ("no")
-    
 
