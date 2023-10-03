@@ -31,12 +31,12 @@ def primality3(N, k):
     #int N and confidence prarameter k
     #output: true/false
     
-    if(N == 2 or 3 or 5 or 7 or 11): return True
+    if(N == 2 or N == 3 or N == 5 or N == 7 or N == 11): return True
     if(N % 2 == 0): return False
     if(N % 3 == 0): return False
-    elif(N % 5 == 0): return False
-    elif(N % 7 == 0): return False
-    elif(N % 11 == 0): return False
+    if(N % 5 == 0): return False
+    if(N % 7 == 0): return False
+    if(N % 11 == 0): return False
     
     return primality2
 
@@ -45,3 +45,10 @@ testN = int(input("\nProblem 2: input n:"))
 testk = int(input("\nProblem 2: input k:"))
 if(primality3(testN, testk)) : print("yes")
 else: print ("no")
+
+
+#Given integers n and k, generate a random prime number P with n bits with a guarantee that P is a prime with probability at least 2**(-k).
+#Implement a solution as follows: generate a random n-2 binary string and add 1 as the first and the last bit to create an n bit integer and convert it to decimal.
+#(The reason for the first bit to be 1 is that we want the number to be odd. The last bit should be 1 since we want no leading 0's.)
+#Then, call primality3 algorithm you in implemented in Problem 2 with n and k as inputs. (k is the second parameter in primality3 which is the number of times the Fermat's test is repeated.)
+#Repeat calling primaility3 until it outputs 'yes'. At this point, you have found a prime number (with a probability at least 2**(-k)).
