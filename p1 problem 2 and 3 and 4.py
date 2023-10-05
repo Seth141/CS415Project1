@@ -1,4 +1,6 @@
 #Adam E, Seth N
+#problem 2, 3, 4
+
 #problem 2
 #The goal of this problem is to implement a modified primality test primality3: Given as
 #input an integer N and confidence parameter k, first test if N is divisible by 3, 5, 7 or 11. If it
@@ -6,7 +8,7 @@
 #(This in turn calls primality algorithm that randomly chooses a (where 1 < a < N) and tests
 #if a^(N-1) = 1(mod N) and repeats it k times to reduce the probability of error to 2^(-k).)
 import random
-
+from math import *
 
 def primality(N):
     #input: positive int N
@@ -47,7 +49,7 @@ def problem2():
     else: print ("no")
 
 
-
+#problem 3
 #Given integers n and k, generate a random prime number P with n bits with a guarantee that P is a prime with probability at least 2**(-k).
 #Implement a solution as follows: generate a random n-2 binary string and add 1 as the first and the last bit to create an n bit integer and convert it to decimal.
 #(The reason for the first bit to be 1 is that we want the number to be odd. The last bit should be 1 since we want no leading 0's.)
@@ -56,11 +58,10 @@ def problem2():
 
 def randomnumber(n):
     #input: n is number of bits in the binary number
-    #output: random odd number
+    #output: random odd int in decimal
     binarynumber = '1'
 
-    for i in range(n-2):
-        binarynumber = binarynumber + random.choice(['0','1'])
+    for i in range(n-2): binarynumber = binarynumber + random.choice(['0','1'])
     binarynumber = binarynumber + '1'
     
     return int(binarynumber, 2)
@@ -68,17 +69,66 @@ def randomnumber(n):
 
 def problem3():
     
-    randomn = int(input("\nProblem 3: input n:"))
+    randomN = int(input("\nProblem 3: input n:"))
     testk = int(input("\nProblem 3: input k:"))
     
     isprime = False
     while not isprime:
-        testN = randomnumber(randomn)
+        testN = randomnumber(randomN)
         isprime= primality3(testN, testk)
         
-    print(str(testN) + 'is prime')
+    print(str(testN) + ' is prime')
 
 
+def gcdExtended(a, b): 
+    # Base Case 
+    if a == 0 : 
+        return b,0,1
+             
+    gcd,x1,y1 = gcdExtended(b%a, a) 
+     
+    # Update x and y using results of recursive 
+    # call 
+    x = y1 - (b//a) * x1 
+    y = x1 
+     
+    return gcd,x,y 
 
-problem2()
-problem3()
+#problem 4
+#Given integers n and k, call the algorithm for Problem 3 (with n and k as inputs) to generate
+#two primes p and q with n bits each, and use them to generate the encryption keys E and the
+#decryption key D. After computing p and q, compute N = pq. Then, find a random 10 bit
+#integer E such that gcd (E, (p - 1)(q - 1)) = 1. Next, find D such that DE = 1 (mod N)
+#using extended Euclid's algorithm. Output N, E and D.
+
+def problem4():
+    
+    randomN = int(input("\nProblem 4: input n:"))
+    testk = int(input("\nProblem 4: input k:"))
+    
+    isprime = False
+    while not isprime:
+        testN = randomnumber(randomN)
+        isprime= primality3(testN, testk)
+    p = testN
+    
+    isprime = False
+    while not isprime:
+        testN = randomnumber(randomN)
+        isprime= primality3(testN, testk)
+    q = testN
+    
+    N = p * q
+    relativelyprime = False
+    while not relativelyprime:
+        E = ''
+        for i in range(10): E = E + random.choice(['0','1'])
+        E = int(E, 2)
+        if (gcd(E, (p - 1)*(q - 1)) == 1): relativelyprime = True
+    
+    D = E**-1 % (p - 1)*(q - 1)
+    
+    print(N, ' ', E, ' ' , D)
+    return N, E, D
+    
+problem4()
