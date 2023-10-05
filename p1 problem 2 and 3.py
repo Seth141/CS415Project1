@@ -26,7 +26,6 @@ def primality2(N, k):
     
     return result
 
-
 def primality3(N, k):
     #int N and confidence prarameter k
     #output: true/false
@@ -41,10 +40,12 @@ def primality3(N, k):
     return primality2
 
 
-testN = int(input("\nProblem 2: input n:"))
-testk = int(input("\nProblem 2: input k:"))
-if(primality3(testN, testk)) : print("yes")
-else: print ("no")
+def problem2():
+    testN = int(input("\nProblem 2: input n:"))
+    testk = int(input("\nProblem 2: input k:"))
+    if(primality3(testN, testk)) : print("yes")
+    else: print ("no")
+
 
 
 #Given integers n and k, generate a random prime number P with n bits with a guarantee that P is a prime with probability at least 2**(-k).
@@ -52,3 +53,32 @@ else: print ("no")
 #(The reason for the first bit to be 1 is that we want the number to be odd. The last bit should be 1 since we want no leading 0's.)
 #Then, call primality3 algorithm you in implemented in Problem 2 with n and k as inputs. (k is the second parameter in primality3 which is the number of times the Fermat's test is repeated.)
 #Repeat calling primaility3 until it outputs 'yes'. At this point, you have found a prime number (with a probability at least 2**(-k)).
+
+def randomnumber(n):
+    #input: n is number of bits in the binary number
+    #output: random odd number
+    binarynumber = '1'
+
+    for i in range(n-2):
+        binarynumber = binarynumber + random.choice(['0','1'])
+    binarynumber = binarynumber + '1'
+    
+    return int(binarynumber, 2)
+
+
+def problem3():
+    
+    randomn = int(input("\nProblem 3: input n:"))
+    testk = int(input("\nProblem 3: input k:"))
+    
+    isprime = False
+    while not isprime:
+        testN = randomnumber(randomn)
+        isprime= primality3(testN, testk)
+        
+    print(str(testN) + 'is prime')
+
+
+
+problem2()
+problem3()
