@@ -1,4 +1,5 @@
 from math import *
+import random
 
 
 def simplify_fraction(p, q):
@@ -107,12 +108,63 @@ def fibonacci(n):
             next_fib = fib_sequence[i - 1] + fib_sequence[i - 2]
             fib_sequence.append(next_fib)
         return fib_sequence[n]
-    
+
+
+def primality(N):
+    # input: positive int N
+    # output: true/false
+
+    # pick a positive int a<N at random
+    a = random.randint(1, N)
+
+    if (a ** (N - 1)) % N == (1 % N):
+        return True
+    else:
+        return False
+
+
+def primality2(N, k):
+    for i in range(k):
+        result = primality(N)
+        if result == False:
+            return result
+
+    return result
+
+
+def primality3(N, k):
+    # int N and confidence prarameter k
+    # output: true/false
+
+    if N == 2 or N == 3 or N == 5 or N == 7 or N == 11:
+        return True
+    if N % 2 == 0:
+        return False
+    if N % 3 == 0:
+        return False
+    if N % 5 == 0:
+        return False
+    if N % 7 == 0:
+        return False
+    if N % 11 == 0:
+        return False
+
+    return primality2
+
+
+def problem2(test1, test2):
+    if primality3(test1, test2):
+        print("yes")
+    else:
+        print("no")
 
 
 
+#
+#Working:
+#
 
-    
+
 
 
 def main():
@@ -152,8 +204,12 @@ def main():
             result2 = fibonacci(n2)
             print(f"Fibonacci: ", result2)
         elif choice == "3":
-            result = multiply_fractions(fraction1, fraction2)
-            print(f"The result of multiplication is: {result[0]}/{result[1]}")
+            print("Enter n: ")
+            n3 = int(input())
+            print("Enter k: ")
+            k = int(input())
+            problem2(n3, k)
+
         elif choice == "4":
             print("choice under revisions")
         elif choice == "5":
